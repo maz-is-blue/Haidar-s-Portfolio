@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=DM+Mono:wght@300;400&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #F5F2EC;
+  --bg2: #EDEAE2;
+  --bg3: #E4E0D6;
+  --ink: #0D0D0B;
+  --ink2: #1A1A16;
+  --ink3: #2C2C24;
+  --olive: #4A5240;
+  --olive2: #3A4132;
+  --olive3: #5E6652;
+  --olive-light: #8A9478;
+  --olive-pale: #C8CFBC;
+  --olive-wash: #EAEDE4;
+  --muted: #8A8880;
+  --dim: #C8C4BA;
+  --rule: #D4D0C6;
+  --bebas: 'Bebas Neue', sans-serif;
+  --cormo: 'Cormorant Garamond', Georgia, serif;
+  --mono: 'DM Mono', monospace;
+  --arabic: 'Noto Kufi Arabic', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--mono);
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, textarea {
+  font-family: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+[dir="rtl"] {
+  font-family: var(--arabic);
+}
+
+[dir="rtl"] .hero-name,
+[dir="rtl"] .page-title,
+[dir="rtl"] .cov-yr,
+[dir="rtl"] .exp-yrs,
+[dir="rtl"] .contact-headline,
+[dir="rtl"] .ticker-inner span,
+[dir="rtl"] .section-label-text,
+[dir="rtl"] .stat-n,
+[dir="rtl"] .submit-btn,
+[dir="rtl"] .logo,
+[dir="rtl"] .footer-brand {
+  font-family: var(--arabic);
+}
+
+[dir="rtl"] .report-title,
+[dir="rtl"] .cov-name,
+[dir="rtl"] .exp-role,
+[dir="rtl"] .art-title,
+[dir="rtl"] .photo-hover-title {
+  font-family: var(--arabic);
+  font-style: normal;
+}
+
+::selection {
+  background: var(--olive3);
+  color: var(--bg);
+}
