@@ -3,6 +3,10 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+  build: {
+    outDir: 'backend/public',
+    emptyOutDir: false, // keep index.php and other Laravel public files
+  },
   server: {
     proxy: {
       '/api': {

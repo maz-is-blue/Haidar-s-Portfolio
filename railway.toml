@@ -1,0 +1,8 @@
+[build]
+buildCommand = "npm install && npm run build && cd backend && composer install --no-dev --optimize-autoloader"
+
+[deploy]
+startCommand = "bash start.sh"
+healthcheckPath = "/api/public/settings"
+healthcheckTimeout = 30
+restartPolicyType = "on_failure"
