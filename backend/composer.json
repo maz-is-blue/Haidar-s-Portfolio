@@ -78,7 +78,17 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "platform": {
-            "php": "8.3.0"
+            "php": "8.3.0",
+            "ext-dom": "20031129",
+            "ext-xml": "20031129",
+            "ext-xmlwriter": "20031129",
+            "ext-tokenizer": "20031129",
+            "ext-mbstring": "20031129",
+            "ext-json": "20031129",
+            "ext-pdo": "20031129",
+            "ext-sqlite3": "20031129",
+            "ext-fileinfo": "20031129",
+            "ext-openssl": "20031129"
         },
         "allow-plugins": {
             "pestphp/pest-plugin": true,
