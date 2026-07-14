@@ -40,7 +40,14 @@ PHPEOF
 
 echo "==> Installing PHP dependencies..."
 cd "$APP_DIR"
-composer install --no-dev --optimize-autoloader
+COMPOSER=$(find /opt/cpanel/composer/bin /usr/local/bin /usr/bin -name "composer" 2>/dev/null | head -1)
+if [ -z "$COMPOSER" ]; then
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    php composer-setup.php --quiet
+    rm -f composer-setup.php
+    COMPOSER="php $APP_DIR/composer.phar"
+fi
+$COMPOSER install --no-dev --optimize-autoloader
 
 echo "==> Setting up database..."
 touch database/database.sqlite
