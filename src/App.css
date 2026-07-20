@@ -692,6 +692,7 @@
 .photo-tabs {
   display: flex;
   padding: 0 48px;
+  margin-top: 32px;
   border-bottom: 1px solid var(--rule);
   background: var(--bg);
   overflow-x: auto;
