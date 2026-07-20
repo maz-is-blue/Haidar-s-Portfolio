@@ -65,8 +65,8 @@ export default function HeroCanvas() {
       ctx.lineWidth = 0.8
       for (let i = 0; i < livePts.length; i++) {
         for (let j = i + 1; j < livePts.length; j++) {
-          const pulse = 0.07 + Math.sin(t * 2 + i + j) * 0.04
-          ctx.strokeStyle = `rgba(94,102,82,${Math.max(0.03, pulse)})`
+          const pulse = 0.18 + Math.sin(t * 2 + i + j) * 0.08
+          ctx.strokeStyle = `rgba(255,255,255,${Math.max(0.08, pulse)})`
           ctx.beginPath()
           ctx.moveTo(livePts[i].x, livePts[i].y)
           ctx.lineTo(livePts[j].x, livePts[j].y)

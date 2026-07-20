@@ -167,7 +167,7 @@
   font-size: 17px;
   font-weight: 300;
   font-style: italic;
-  color: #6A6A60;
+  color: rgba(255,255,255,0.75);
   margin: 20px 0 32px;
   line-height: 1.6;
   max-width: 360px;
