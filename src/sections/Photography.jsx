@@ -91,7 +91,7 @@ export default function Photography() {
             {displayedPhotos.map((photo, i) => (
               <div className="photo-cell" key={i} onClick={() => openLightbox(i)}>
                 {photo.src
-                  ? <img src={photo.src} alt={photo.caption} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }} />
+                  ? <img src={photo.src} alt={photo.caption} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                   : <div className="photo-num">{String(i + 1).padStart(2, '0')}</div>
                 }
                 <div className="photo-hover">
