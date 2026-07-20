@@ -87,12 +87,12 @@ export default function Photography() {
             ))}
           </div>
 
-          <div className="photo-grid">
+          <div className="photo-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridAutoRows: '300px', gap: '1px', background: 'var(--rule)', margin: '1px 0' }}>
             {displayedPhotos.map((photo, i) => (
-              <div className="photo-cell" key={i} onClick={() => openLightbox(i)}>
+              <div className="photo-cell" key={i} onClick={() => openLightbox(i)} style={{ height: '300px', position: 'relative', overflow: 'hidden', display: 'block', cursor: 'pointer', background: 'var(--bg3)' }}>
                 {photo.src
-                  ? <img src={photo.src} alt={photo.caption} />
-                  : <div className="photo-num">{String(i + 1).padStart(2, '0')}</div>
+                  ? <img src={photo.src} alt={photo.caption} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                  : <div className="photo-num" style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{String(i + 1).padStart(2, '0')}</div>
                 }
                 <div className="photo-hover">
                   <div className="photo-hover-title">
