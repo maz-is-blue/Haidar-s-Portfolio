@@ -6,6 +6,7 @@ const POINTS = [
   { x: 0.55, y: 0.58, l: 'BEIRUT' },
   { x: 0.12, y: 0.72, l: 'LATAKIA' },
   { x: 0.88, y: 0.82, l: 'BAGHDAD' },
+  { x: 0.38, y: 0.42, l: 'DAMASCUS' },
 ]
 
 export default function HeroCanvas() {
