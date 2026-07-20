@@ -78,17 +78,17 @@ export default function HeroCanvas() {
         const r = 4 + Math.sin(t * 3 + i) * 1
         ctx.beginPath()
         ctx.arc(p.x, p.y, r, 0, Math.PI * 2)
-        ctx.fillStyle = '#5E6652'
+        ctx.fillStyle = '#FFFFFF'
         ctx.fill()
 
         ctx.beginPath()
         ctx.arc(p.x, p.y, 9 + Math.sin(t * 2 + i) * 2, 0, Math.PI * 2)
-        ctx.strokeStyle = 'rgba(94,102,82,0.25)'
+        ctx.strokeStyle = 'rgba(255,255,255,0.25)'
         ctx.lineWidth = 1
         ctx.stroke()
 
         ctx.font = '500 10px monospace'
-        ctx.fillStyle = 'rgba(138,148,120,0.5)'
+        ctx.fillStyle = 'rgba(255,255,255,0.75)'
         ctx.textAlign = 'left'
         ctx.fillText(p.l, p.x + 14, p.y + 4)
       })
