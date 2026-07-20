@@ -30,11 +30,12 @@ export default function Work() {
       <div className="reports-grid">
         {reports.map((r) => (
           <div className="report-card" key={r.id}>
-            {r.cover_image_url ? (
-              <img src={r.cover_image_url} alt={title(r)} style={{ width: '100%', height: 200, objectFit: 'cover', display: 'block' }} />
-            ) : (
-              <div className="img-ph"><span className="img-ph-text">Photo placeholder</span></div>
-            )}
+            <div className="img-ph">
+              {r.cover_image_url || r.image
+                ? <img src={r.cover_image_url || r.image} alt={title(r)} />
+                : <span className="img-ph-text">Photo placeholder</span>
+              }
+            </div>
             <div className="report-src">{r.src}</div>
             <div className="report-title">{title(r)}</div>
             <div className="report-desc">{desc(r)}</div>

@@ -23,9 +23,9 @@ export const content = {
       label: 'Showreel',
       caption: 'FIELD REPORTING · LIVE BROADCASTING · CONFLICT COVERAGE · PHOTOJOURNALISM',
       tags: ['Field Reporting', 'Live Broadcasting', 'News Anchoring', 'Photography', 'Conflict', 'Humanitarian', 'International'],
-      videoUrl: '', // add embed URL here
+      videoUrl: '',
     },
-    orgsLabel: 'As Seen In',
+    orgsLabel: 'Media Organizations',
     orgs: [
       { name: 'Reuters', wire: true },
       { name: 'AFP', wire: true },
@@ -38,7 +38,6 @@ export const content = {
       { name: 'The Cradle' },
       { name: 'Syria Untold' },
       { name: 'Cham Times' },
-      { name: 'Sama TV' },
     ],
     work: {
       title: 'Featured Reports',
@@ -50,6 +49,7 @@ export const content = {
           desc: 'Field report from Latakia countryside — education continuing despite destruction left by years of conflict.',
           link: 'http://arabic.china.org.cn/txt/2025-10/20/content_118131531.htm',
           linkLabel: 'Read Report',
+          image: '',
         },
         {
           src: 'Viory',
@@ -57,6 +57,7 @@ export const content = {
           desc: 'A human-centered story on the economic and environmental impact of the devastating 2025 wildfires.',
           link: 'https://www.viory.video/en/videos/a3415_12072025/loss-worth-tens-of-millions-syrian-beekeeper-loses-more-than-70-of-apiaries-in-wildfire-ravaged-latakia-forests',
           linkLabel: 'Watch Report',
+          image: '',
         },
         {
           src: 'Viory',
@@ -64,6 +65,7 @@ export const content = {
           desc: 'Humanitarian coverage documenting relief operations across Latakia in the aftermath of the 2023 earthquake.',
           link: 'https://www.viory.video/en/videos/a3015_19022023',
           linkLabel: 'Watch Report',
+          image: '',
         },
         {
           src: 'Reuters',
@@ -71,6 +73,7 @@ export const content = {
           desc: "Reporting on daily life, security, and social changes during Syria's major period of political transformation.",
           link: 'https://youtu.be/9HoBeXiR0QA',
           linkLabel: 'Watch Report',
+          image: '',
         },
       ],
     },
@@ -201,17 +204,47 @@ export const content = {
     photography: {
       title: 'Photography',
       sub: 'Reuters · AFP · Xinhua · Field Work',
-      filters: ['All', 'Politics', 'Conflict', 'Humanitarian', 'Daily Life', 'Breaking News'],
-      photos: [
-        { cat: 'Conflict', title: 'Syria Coast, 2025' },
-        { cat: 'Humanitarian', title: 'Earthquake Relief' },
-        { cat: 'Politics', title: 'Arab League Summit' },
-        { cat: 'Breaking News', title: 'Latakia Wildfires' },
-        { cat: 'Daily Life', title: 'Bakery Queue, Latakia' },
-        { cat: 'Conflict', title: 'Iraq Protests, Baghdad' },
-        { cat: 'Humanitarian', title: 'Salma School Tents' },
-        { cat: 'Politics', title: 'Syria Transition' },
-        { cat: 'Breaking News', title: 'Firefighters Arrive' },
+      allLabel: 'All',
+      categories: [
+        {
+          id: 'conflict',
+          label: 'Conflict',
+          photos: [
+            { src: '', caption: 'Syria Coast, 2025' },
+            { src: '', caption: 'Iraq Protests, Baghdad 2019' },
+          ],
+        },
+        {
+          id: 'humanitarian',
+          label: 'Humanitarian',
+          photos: [
+            { src: '', caption: 'Earthquake Relief Operations, 2023' },
+            { src: '', caption: 'Salma School Tents, Latakia' },
+          ],
+        },
+        {
+          id: 'politics',
+          label: 'Politics',
+          photos: [
+            { src: '', caption: 'Arab League Summit' },
+            { src: '', caption: 'Syria Political Transition, 2024' },
+          ],
+        },
+        {
+          id: 'breaking',
+          label: 'Breaking News',
+          photos: [
+            { src: '', caption: 'Latakia Wildfires, 2025' },
+            { src: '', caption: 'Firefighters Arrive on Scene' },
+          ],
+        },
+        {
+          id: 'daily',
+          label: 'Daily Life',
+          photos: [
+            { src: '', caption: 'Bakery Queue, Latakia' },
+          ],
+        },
       ],
     },
     articles: {
@@ -259,6 +292,7 @@ export const content = {
         { name: 'Social Media Solutions', org: 'ICFJ · SMEX' },
         { name: 'News and Program Presentation', org: 'Syrian International Academy' },
       ],
+      previewBtn: 'Full Bio →',
     },
     contact: {
       title: 'Contact',
@@ -279,6 +313,7 @@ export const content = {
       labels: { name: 'Name', email: 'Email', org: 'Organization', msg: 'Message' },
       placeholders: { name: 'Your name', email: 'your@email.com', org: 'Media outlet or organization', msg: 'Tell me about the assignment or collaboration...' },
       submit: 'Send Message',
+      previewBtn: 'Send a Message →',
     },
     footer: { brand: 'Haidar Mustafa · حيدر مصطفى', copy: '© 2025 · Journalist · Syria' },
   },
@@ -309,7 +344,7 @@ export const content = {
       tags: ['تقارير ميدانية', 'بث مباشر', 'تقديم الأخبار', 'التصوير الصحفي', 'تغطية النزاعات', 'التغطية الإنسانية', 'إعلام دولي'],
       videoUrl: '',
     },
-    orgsLabel: 'عملت مع',
+    orgsLabel: 'المؤسسات الإعلامية',
     orgs: [
       { name: 'Reuters', wire: true },
       { name: 'AFP', wire: true },
@@ -322,7 +357,6 @@ export const content = {
       { name: 'The Cradle' },
       { name: 'Syria Untold' },
       { name: 'Cham Times' },
-      { name: 'Sama TV' },
     ],
     work: {
       title: 'تقارير مختارة',
@@ -334,6 +368,7 @@ export const content = {
           desc: 'تقرير ميداني من ريف اللاذقية — التعليم مستمر رغم الدمار الذي خلفته سنوات الصراع.',
           link: 'http://arabic.china.org.cn/txt/2025-10/20/content_118131531.htm',
           linkLabel: 'قراءة التقرير',
+          image: '',
         },
         {
           src: 'Viory',
@@ -341,6 +376,7 @@ export const content = {
           desc: 'قصة إنسانية عن الأثر الاقتصادي والبيئي لحرائق 2025 المدمرة.',
           link: 'https://www.viory.video/en/videos/a3415_12072025/loss-worth-tens-of-millions-syrian-beekeeper-loses-more-than-70-of-apiaries-in-wildfire-ravaged-latakia-forests',
           linkLabel: 'مشاهدة التقرير',
+          image: '',
         },
         {
           src: 'Viory',
@@ -348,6 +384,7 @@ export const content = {
           desc: 'تغطية إنسانية توثّق عمليات الإغاثة في اللاذقية بعد زلزال 2023.',
           link: 'https://www.viory.video/en/videos/a3015_19022023',
           linkLabel: 'مشاهدة التقرير',
+          image: '',
         },
         {
           src: 'Reuters',
@@ -355,6 +392,7 @@ export const content = {
           desc: 'تغطية للحياة اليومية والأمن والتغيرات الاجتماعية خلال فترة التحول السياسي الكبرى في سوريا.',
           link: 'https://youtu.be/9HoBeXiR0QA',
           linkLabel: 'مشاهدة التقرير',
+          image: '',
         },
       ],
     },
@@ -485,17 +523,47 @@ export const content = {
     photography: {
       title: 'التصوير الصحفي',
       sub: 'رويترز · أ.ف.ب · شينخوا · أعمال ميدانية',
-      filters: ['الكل', 'سياسة', 'نزاعات', 'إنسانية', 'حياة يومية', 'أخبار عاجلة'],
-      photos: [
-        { cat: 'نزاعات', title: 'الساحل السوري، 2025' },
-        { cat: 'إنسانية', title: 'إغاثة الزلزال' },
-        { cat: 'سياسة', title: 'قمة الجامعة العربية' },
-        { cat: 'أخبار عاجلة', title: 'حرائق اللاذقية' },
-        { cat: 'حياة يومية', title: 'طابور الفرن، اللاذقية' },
-        { cat: 'نزاعات', title: 'احتجاجات العراق، بغداد' },
-        { cat: 'إنسانية', title: 'خيام مدرسة سلمى' },
-        { cat: 'سياسة', title: 'التحول السوري' },
-        { cat: 'أخبار عاجلة', title: 'وصول رجال الإطفاء' },
+      allLabel: 'الكل',
+      categories: [
+        {
+          id: 'conflict',
+          label: 'نزاعات',
+          photos: [
+            { src: '', caption: 'الساحل السوري، 2025' },
+            { src: '', caption: 'احتجاجات العراق، بغداد 2019' },
+          ],
+        },
+        {
+          id: 'humanitarian',
+          label: 'إنسانية',
+          photos: [
+            { src: '', caption: 'عمليات إغاثة الزلزال، 2023' },
+            { src: '', caption: 'خيام مدرسة سلمى، اللاذقية' },
+          ],
+        },
+        {
+          id: 'politics',
+          label: 'سياسة',
+          photos: [
+            { src: '', caption: 'قمة الجامعة العربية' },
+            { src: '', caption: 'التحول السياسي في سوريا، 2024' },
+          ],
+        },
+        {
+          id: 'breaking',
+          label: 'أخبار عاجلة',
+          photos: [
+            { src: '', caption: 'حرائق اللاذقية، 2025' },
+            { src: '', caption: 'وصول رجال الإطفاء' },
+          ],
+        },
+        {
+          id: 'daily',
+          label: 'حياة يومية',
+          photos: [
+            { src: '', caption: 'طابور الفرن، اللاذقية' },
+          ],
+        },
       ],
     },
     articles: {
@@ -543,6 +611,7 @@ export const content = {
         { name: 'حلول وسائل التواصل الاجتماعي', org: 'ICFJ · SMEX' },
         { name: 'تقديم الأخبار والبرامج', org: 'الأكاديمية السورية الدولية' },
       ],
+      previewBtn: '← السيرة الكاملة',
     },
     contact: {
       title: 'تواصل',
@@ -563,6 +632,7 @@ export const content = {
       labels: { name: 'الاسم', email: 'البريد الإلكتروني', org: 'المؤسسة', msg: 'الرسالة' },
       placeholders: { name: 'اسمك', email: 'your@email.com', org: 'المؤسسة الإعلامية', msg: 'أخبرني عن المهمة أو التعاون...' },
       submit: 'إرسال',
+      previewBtn: '← أرسل رسالة',
     },
     footer: { brand: 'حيدر مصطفى · Haidar Mustafa', copy: '© 2025 · صحفي · سوريا' },
   },
