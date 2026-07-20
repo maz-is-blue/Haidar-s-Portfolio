@@ -58,8 +58,8 @@ export default function HeroCanvas() {
 
       const livePts = pts.map((p, i) => ({
         ...p,
-        x: p.px * w + Math.sin(t + i * 1.7) * 6,
-        y: p.py * h + Math.cos(t + i * 2.1) * 6,
+        x: p.px * w + Math.sin(t * (0.6 + i * 0.15) + i * 1.7) * 28,
+        y: p.py * h + Math.cos(t * (0.5 + i * 0.12) + i * 2.1) * 22,
       }))
 
       ctx.lineWidth = 0.8
