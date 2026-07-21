@@ -44,6 +44,7 @@ export const submitContact = (data) => api.post('/public/contact', data)
 // Admin: Settings
 export const adminGetSettings = () => api.get('/admin/settings')
 export const adminUpdateSettings = (data) => api.put('/admin/settings', data)
+export const adminDeleteShowreel = () => api.delete('/admin/settings/showreel')
 export const adminUploadShowreel = (file, onProgress) => {
   const fd = new FormData(); fd.append('video', file)
   return api.post('/admin/settings/showreel', fd, {

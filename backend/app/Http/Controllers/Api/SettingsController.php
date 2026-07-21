@@ -48,4 +48,14 @@ class SettingsController extends Controller
         Setting::set('showreel_url', $url);
         return response()->json(['url' => $url]);
     }
+
+    public function deleteShowreel()
+    {
+        $old = Setting::get('showreel_url');
+        if ($old && str_contains($old, '/storage/showreel/')) {
+            Storage::disk('public')->delete(str_replace('/storage/', '', parse_url($old, PHP_URL_PATH)));
+        }
+        Setting::set('showreel_url', null);
+        return response()->json(['message' => 'Deleted']);
+    }
 }

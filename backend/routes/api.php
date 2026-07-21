@@ -41,7 +41,8 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
     // Settings
     Route::get('/settings',             [SettingsController::class, 'index']);
     Route::put('/settings',             [SettingsController::class, 'update']);
-    Route::post('/settings/showreel',   [SettingsController::class, 'uploadShowreel']);
+    Route::post('/settings/showreel',    [SettingsController::class, 'uploadShowreel']);
+    Route::delete('/settings/showreel',  [SettingsController::class, 'deleteShowreel']);
 
     // Work Reports
     Route::get('/work-reports',              [WorkReportController::class, 'index']);

@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
-import { adminGetSettings, adminUploadShowreel } from '../../services/api.js'
+import { adminGetSettings, adminUploadShowreel, adminDeleteShowreel } from '../../services/api.js'
 
 export default function ShowreelManager() {
   const [currentUrl, setCurrentUrl] = useState(null)
   const [uploading, setUploading] = useState(false)
+  const [deleting, setDeleting] = useState(false)
   const [progress, setProgress] = useState(0)
   const [alert, setAlert] = useState(null)
   const inputRef = useRef(null)
@@ -28,6 +29,19 @@ export default function ShowreelManager() {
     inputRef.current.value = ''
   }
 
+  const handleDelete = async () => {
+    if (!window.confirm('Remove the current showreel?')) return
+    setDeleting(true); setAlert(null)
+    try {
+      await adminDeleteShowreel()
+      setCurrentUrl(null)
+      setAlert({ type: 'success', msg: 'Showreel removed.' })
+    } catch {
+      setAlert({ type: 'error', msg: 'Failed to delete showreel.' })
+    }
+    setDeleting(false)
+  }
+
   const isDirectVideo = currentUrl && /\.(mp4|webm|mov|avi)(\?|$)/i.test(currentUrl)
 
   return (
@@ -46,6 +60,14 @@ export default function ShowreelManager() {
                 <iframe src={currentUrl} title="Showreel" allowFullScreen style={{ width: '100%', height: 360, border: 'none', display: 'block' }} />
               )}
               <div className="admin-hint" style={{ marginTop: 8, wordBreak: 'break-all' }}>{currentUrl}</div>
+              <button
+                type="button"
+                onClick={handleDelete}
+                disabled={deleting}
+                style={{ marginTop: 12, background: '#c0392b', color: '#fff', border: 'none', padding: '8px 18px', fontFamily: 'monospace', fontSize: '0.75rem', cursor: 'pointer', letterSpacing: '0.05em' }}
+              >
+                {deleting ? 'Removing…' : 'Remove Showreel'}
+              </button>
             </div>
           </div>
         )}
