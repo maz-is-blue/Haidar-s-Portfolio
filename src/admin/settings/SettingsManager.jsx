@@ -1,16 +1,30 @@
-import { useState, useEffect } from 'react'
-import { adminGetSettings, adminUpdateSettings } from '../../services/api.js'
+import { useState, useEffect, useRef } from 'react'
+import { adminGetSettings, adminUpdateSettings, adminUploadShowreel } from '../../services/api.js'
 
 export default function SettingsManager() {
   const [settings, setSettings] = useState(null)
   const [saving, setSaving] = useState(false)
   const [alert, setAlert] = useState(null)
+  const [uploading, setUploading] = useState(false)
+  const videoInputRef = useRef(null)
 
   useEffect(() => {
     adminGetSettings().then((r) => setSettings(r.data)).catch(() => {})
   }, [])
 
   const set = (key, val) => setSettings((s) => ({ ...s, [key]: val }))
+
+  const uploadShowreel = async (e) => {
+    const file = e.target.files[0]; if (!file) return
+    setUploading(true); setAlert(null)
+    try {
+      const r = await adminUploadShowreel(file)
+      set('showreel_url', r.data.url)
+      setAlert({ type: 'success', msg: 'Showreel uploaded successfully.' })
+    } catch { setAlert({ type: 'error', msg: 'Upload failed. Max 500 MB, formats: mp4, webm, mov.' }) }
+    setUploading(false)
+    videoInputRef.current.value = ''
+  }
 
   const save = async (e) => {
     e.preventDefault(); setSaving(true); setAlert(null)
@@ -56,9 +70,15 @@ export default function SettingsManager() {
           <div className="admin-card">
             <div className="admin-card-header"><div className="admin-card-title">Showreel</div></div>
             <div className="admin-field light">
-              <label>Showreel Video Embed URL</label>
-              <input value={settings.showreel_url || ''} onChange={(e) => set('showreel_url', e.target.value)} placeholder="https://www.youtube.com/embed/…" />
-              <div className="admin-hint">Leave blank to show the placeholder frame. Use YouTube embed URL format.</div>
+              <label>Upload Showreel Video</label>
+              {settings.showreel_url && (
+                <div style={{ marginBottom: 12 }}>
+                  <video src={settings.showreel_url} controls style={{ width: '100%', maxHeight: 220, background: '#000', display: 'block' }} />
+                  <div className="admin-hint" style={{ marginTop: 4 }}>{settings.showreel_url}</div>
+                </div>
+              )}
+              <input ref={videoInputRef} type="file" accept="video/mp4,video/webm,video/quicktime" onChange={uploadShowreel} disabled={uploading} />
+              <div className="admin-hint">{uploading ? 'Uploading…' : 'Accepted: mp4, webm, mov — max 500 MB'}</div>
             </div>
             <div className="admin-field light" style={{ marginTop: 16 }}>
               <label>Showreel Caption (EN)</label>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SettingsController extends Controller
 {
@@ -33,5 +34,18 @@ class SettingsController extends Controller
             }
         }
         return response()->json(['message' => 'Settings updated']);
+    }
+
+    public function uploadShowreel(Request $request)
+    {
+        $request->validate(['video' => 'required|file|mimes:mp4,webm,mov,avi|max:512000']);
+        $old = Setting::get('showreel_url');
+        if ($old && str_contains($old, '/storage/showreel/')) {
+            Storage::disk('public')->delete(str_replace('/storage/', '', parse_url($old, PHP_URL_PATH)));
+        }
+        $path = $request->file('video')->store('showreel', 'public');
+        $url = url('storage/' . $path);
+        Setting::set('showreel_url', $url);
+        return response()->json(['url' => $url]);
     }
 }

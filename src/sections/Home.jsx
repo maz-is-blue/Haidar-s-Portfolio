@@ -87,7 +87,9 @@ export default function Home({ goTo }) {
         </div>
         <div className="video-wrap">
           {showreelUrl ? (
-            <iframe src={showreelUrl} title="Showreel" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen style={{ width: '100%', height: '100%', border: 'none' }} />
+            /\.(mp4|webm|mov|avi)(\?|$)/i.test(showreelUrl)
+              ? <video src={showreelUrl} controls style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#000' }} />
+              : <iframe src={showreelUrl} title="Showreel" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen style={{ width: '100%', height: '100%', border: 'none' }} />
           ) : (
             <>
               <div className="video-corner tl"></div>

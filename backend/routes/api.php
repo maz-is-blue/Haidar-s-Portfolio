@@ -39,8 +39,9 @@ Route::prefix('public')->group(function () {
 Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
 
     // Settings
-    Route::get('/settings',    [SettingsController::class, 'index']);
-    Route::put('/settings',    [SettingsController::class, 'update']);
+    Route::get('/settings',             [SettingsController::class, 'index']);
+    Route::put('/settings',             [SettingsController::class, 'update']);
+    Route::post('/settings/showreel',   [SettingsController::class, 'uploadShowreel']);
 
     // Work Reports
     Route::get('/work-reports',              [WorkReportController::class, 'index']);
