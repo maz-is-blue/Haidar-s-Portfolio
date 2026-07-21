@@ -44,9 +44,12 @@ export const submitContact = (data) => api.post('/public/contact', data)
 // Admin: Settings
 export const adminGetSettings = () => api.get('/admin/settings')
 export const adminUpdateSettings = (data) => api.put('/admin/settings', data)
-export const adminUploadShowreel = (file) => {
+export const adminUploadShowreel = (file, onProgress) => {
   const fd = new FormData(); fd.append('video', file)
-  return api.post('/admin/settings/showreel', fd, { headers: { 'Content-Type': 'multipart/form-data' } })
+  return api.post('/admin/settings/showreel', fd, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+    onUploadProgress: e => onProgress && onProgress(Math.round((e.loaded * 100) / e.total)),
+  })
 }
 
 // Admin: Work Reports

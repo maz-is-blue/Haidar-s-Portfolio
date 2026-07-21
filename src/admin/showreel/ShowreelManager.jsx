@@ -16,8 +16,9 @@ export default function ShowreelManager() {
     const file = e.target.files[0]; if (!file) return
     setUploading(true); setProgress(0); setAlert(null)
     try {
-      const r = await adminUploadShowreel(file)
+      const r = await adminUploadShowreel(file, pct => setProgress(pct))
       setCurrentUrl(r.data.url)
+      setProgress(100)
       setAlert({ type: 'success', msg: 'Showreel uploaded successfully.' })
     } catch {
       setAlert({ type: 'error', msg: 'Upload failed. Max 500 MB — accepted formats: mp4, webm, mov.' })
@@ -60,10 +61,20 @@ export default function ShowreelManager() {
                 onChange={handleFile}
                 disabled={uploading}
               />
-              <div className="admin-hint">
-                {uploading ? 'Uploading — please wait, large files may take a moment…' : 'Accepted: mp4, webm, mov — max 500 MB'}
-              </div>
+              <div className="admin-hint">Accepted: mp4, webm, mov — max 500 MB</div>
             </div>
+
+            {uploading && (
+              <div style={{ marginTop: 16 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', fontFamily: 'monospace', color: '#888', marginBottom: 6 }}>
+                  <span>Uploading…</span>
+                  <span>{progress}%</span>
+                </div>
+                <div style={{ height: 6, background: '#e8e5df', borderRadius: 3, overflow: 'hidden' }}>
+                  <div style={{ height: '100%', width: `${progress}%`, background: '#4A5240', borderRadius: 3, transition: 'width 0.2s ease' }} />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
