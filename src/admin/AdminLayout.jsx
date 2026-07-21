@@ -11,6 +11,7 @@ const NAV = [
   { to: '/admin/experience', label: 'Experience', icon: '◷' },
   { section: 'Pages' },
   { to: '/admin/about', label: 'About', icon: '◌' },
+  { to: '/admin/showreel', label: 'Showreel', icon: '▷' },
   { to: '/admin/settings', label: 'Site Settings', icon: '◎' },
   { section: 'Inbox' },
   { to: '/admin/messages', label: 'Messages', icon: '◻' },

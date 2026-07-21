@@ -23,6 +23,7 @@ import CoverageManager from './admin/coverage/CoverageManager.jsx'
 import ExperienceManager from './admin/experience/ExperienceManager.jsx'
 import AboutManager from './admin/about/AboutManager.jsx'
 import SettingsManager from './admin/settings/SettingsManager.jsx'
+import ShowreelManager from './admin/showreel/ShowreelManager.jsx'
 import MessagesManager from './admin/messages/MessagesManager.jsx'
 
 import './App.css'
@@ -89,6 +90,7 @@ export default function App() {
               <Route path="coverage" element={<CoverageManager />} />
               <Route path="experience" element={<ExperienceManager />} />
               <Route path="about" element={<AboutManager />} />
+              <Route path="showreel" element={<ShowreelManager />} />
               <Route path="settings" element={<SettingsManager />} />
               <Route path="messages" element={<MessagesManager />} />
             </Route>
