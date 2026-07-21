@@ -20,8 +20,9 @@ export default function ShowreelManager() {
       setCurrentUrl(r.data.url)
       setProgress(100)
       setAlert({ type: 'success', msg: 'Showreel uploaded successfully.' })
-    } catch {
-      setAlert({ type: 'error', msg: 'Upload failed. Max 500 MB — accepted formats: mp4, webm, mov.' })
+    } catch (err) {
+      const msg = err?.response?.data?.message || err?.response?.data?.error || JSON.stringify(err?.response?.data) || 'Upload failed.'
+      setAlert({ type: 'error', msg: `Upload failed: ${msg}` })
     }
     setUploading(false)
     inputRef.current.value = ''
