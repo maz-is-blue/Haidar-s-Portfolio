@@ -12,7 +12,7 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        return response()->json(Article::with('links')->orderBy('sort_order')->get());
+        return response()->json(Article::with('links')->orderBy('created_at', 'desc')->get());
     }
 
     public function show(Article $article)
