@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useSearchParams } from 'react-router-dom'
 import { LanguageProvider, useLanguage } from './LanguageContext.jsx'
 import { AuthProvider, useAuth } from './context/AuthContext.jsx'
 import Nav from './components/Nav.jsx'
@@ -8,6 +8,7 @@ import Work from './sections/Work.jsx'
 import Experience from './sections/Experience.jsx'
 import Photography from './sections/Photography.jsx'
 import Articles from './sections/Articles.jsx'
+import ArticlePage from './sections/ArticlePage.jsx'
 import About from './sections/About.jsx'
 import Contact from './sections/Contact.jsx'
 import Footer from './components/Footer.jsx'
@@ -38,7 +39,8 @@ function ProtectedRoute({ children }) {
 }
 
 function Portfolio() {
-  const [page, setPage] = useState('home')
+  const [searchParams] = useSearchParams()
+  const [page, setPage] = useState(searchParams.get('goto') || 'home')
   const { t } = useLanguage()
 
   const pages = {
@@ -67,6 +69,7 @@ export default function App() {
         <LanguageProvider>
           <Routes>
             {/* Public portfolio */}
+            <Route path="/articles/:id" element={<ArticlePage />} />
             <Route path="/*" element={<Portfolio />} />
 
             {/* Admin auth */}
