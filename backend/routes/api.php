@@ -43,6 +43,7 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
     Route::put('/settings',             [SettingsController::class, 'update']);
     Route::post('/settings/showreel',    [SettingsController::class, 'uploadShowreel']);
     Route::delete('/settings/showreel',  [SettingsController::class, 'deleteShowreel']);
+    Route::post('/settings/og-cover',    [SettingsController::class, 'uploadOgCover']);
 
     // Work Reports
     Route::get('/work-reports',              [WorkReportController::class, 'index']);

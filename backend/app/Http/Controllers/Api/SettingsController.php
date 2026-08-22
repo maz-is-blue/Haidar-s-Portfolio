@@ -15,6 +15,7 @@ class SettingsController extends Controller
         'stats_json', 'orgs_json', 'ticker_en', 'ticker_ar',
         'contact_email', 'contact_phone', 'contact_whatsapp',
         'contact_linkedin', 'contact_location_en', 'contact_location_ar',
+        'og_cover_url',
     ];
 
     public function index()
@@ -57,5 +58,14 @@ class SettingsController extends Controller
         }
         Setting::set('showreel_url', null);
         return response()->json(['message' => 'Deleted']);
+    }
+
+    public function uploadOgCover(Request $request)
+    {
+        $request->validate(['image' => 'required|image|mimes:jpeg,jpg,png,webp|max:10240']);
+        Storage::disk('public')->put('og-cover.jpg', file_get_contents($request->file('image')->getRealPath()));
+        $url = url('storage/og-cover.jpg');
+        Setting::set('og_cover_url', $url);
+        return response()->json(['url' => $url]);
     }
 }

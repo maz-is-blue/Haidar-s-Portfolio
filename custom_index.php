@@ -24,13 +24,22 @@ if (preg_match('#^/articles/(\d+)$#', $request_path, $matches)) {
     $db_path = '/home/lomlqwpqfn/portfolio/backend/database/database.sqlite';
     if (file_exists($db_path)) {
         try {
-            $db   = new PDO('sqlite:' . $db_path);
+            $db = new PDO('sqlite:' . $db_path);
+
+            // Read og_cover_url from settings as the default fallback
+            $s = $db->prepare("SELECT value FROM settings WHERE \"key\" = 'og_cover_url' LIMIT 1");
+            $s->execute();
+            $sv = $s->fetch(PDO::FETCH_ASSOC);
+            if ($sv && !empty($sv['value'])) $default_image = $sv['value'];
+            $og_image = $default_image;
+
+            // Read the article
             $stmt = $db->prepare('SELECT title_en, excerpt_en, cover_image FROM articles WHERE id = ? LIMIT 1');
             $stmt->execute([$article_id]);
             $row  = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($row) {
-                if (!empty($row['title_en']))  $og_title = htmlspecialchars($row['title_en'], ENT_QUOTES) . ' — Haidar Mustafa';
-                if (!empty($row['excerpt_en'])) $og_desc  = htmlspecialchars($row['excerpt_en'], ENT_QUOTES);
+                if (!empty($row['title_en']))   $og_title = htmlspecialchars($row['title_en'], ENT_QUOTES) . ' — Haidar Mustafa';
+                if (!empty($row['excerpt_en']))  $og_desc  = htmlspecialchars($row['excerpt_en'], ENT_QUOTES);
                 if (!empty($row['cover_image'])) $og_image = $site_url . '/storage/' . $row['cover_image'];
             }
         } catch (Exception $e) {

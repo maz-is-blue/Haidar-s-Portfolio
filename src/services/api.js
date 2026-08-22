@@ -45,6 +45,13 @@ export const submitContact = (data) => api.post('/public/contact', data)
 export const adminGetSettings = () => api.get('/admin/settings')
 export const adminUpdateSettings = (data) => api.put('/admin/settings', data)
 export const adminDeleteShowreel = () => api.delete('/admin/settings/showreel')
+export const adminUploadOgCover = (file, onProgress) => {
+  const fd = new FormData(); fd.append('image', file)
+  return api.post('/admin/settings/og-cover', fd, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+    onUploadProgress: e => onProgress && onProgress(Math.round((e.loaded * 100) / e.total)),
+  })
+}
 export const adminUploadShowreel = (file, onProgress) => {
   const fd = new FormData(); fd.append('video', file)
   return api.post('/admin/settings/showreel', fd, {

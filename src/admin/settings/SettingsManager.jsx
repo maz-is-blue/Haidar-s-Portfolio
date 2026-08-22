@@ -1,10 +1,13 @@
-import { useState, useEffect } from 'react'
-import { adminGetSettings, adminUpdateSettings } from '../../services/api.js'
+import { useState, useEffect, useRef } from 'react'
+import { adminGetSettings, adminUpdateSettings, adminUploadOgCover } from '../../services/api.js'
 
 export default function SettingsManager() {
   const [settings, setSettings] = useState(null)
   const [saving, setSaving] = useState(false)
   const [alert, setAlert] = useState(null)
+  const [coverUploading, setCoverUploading] = useState(false)
+  const [coverProgress, setCoverProgress] = useState(0)
+  const coverInputRef = useRef(null)
 
   useEffect(() => {
     adminGetSettings().then((r) => setSettings(r.data)).catch(() => {})
@@ -19,6 +22,21 @@ export default function SettingsManager() {
       setAlert({ type: 'success', msg: 'Settings saved.' })
     } catch { setAlert({ type: 'error', msg: 'Failed to save.' }) }
     setSaving(false)
+  }
+
+  const handleCoverUpload = async (e) => {
+    const file = e.target.files[0]; if (!file) return
+    setCoverUploading(true); setCoverProgress(0); setAlert(null)
+    try {
+      const r = await adminUploadOgCover(file, pct => setCoverProgress(pct))
+      setSettings(s => ({ ...s, og_cover_url: r.data.url }))
+      setAlert({ type: 'success', msg: 'Cover image uploaded.' })
+    } catch (err) {
+      const msg = err?.response?.data?.message || 'Upload failed.'
+      setAlert({ type: 'error', msg })
+    }
+    setCoverUploading(false)
+    coverInputRef.current.value = ''
   }
 
   if (!settings) return <div className="admin-loading">Loading…</div>
@@ -58,6 +76,44 @@ export default function SettingsManager() {
             <div className="admin-field light">
               <label>Caption (EN)</label>
               <input value={settings.showreel_caption_en || ''} onChange={(e) => set('showreel_caption_en', e.target.value)} />
+            </div>
+          </div>
+
+          {/* OG Cover */}
+          <div className="admin-card">
+            <div className="admin-card-header"><div className="admin-card-title">Link Preview Cover Image</div></div>
+            <div style={{ padding: '16px 24px 24px' }}>
+              <div className="admin-hint" style={{ marginBottom: 16 }}>
+                This image appears when sharing the site on LinkedIn, Twitter, WhatsApp, etc. Recommended size: 1200×630px.
+              </div>
+              {settings.og_cover_url && (
+                <img
+                  src={settings.og_cover_url}
+                  alt="OG Cover"
+                  style={{ width: '100%', maxHeight: 220, objectFit: 'cover', display: 'block', marginBottom: 16, borderRadius: 2 }}
+                />
+              )}
+              <div className="admin-field light">
+                <label>Upload New Cover</label>
+                <input
+                  ref={coverInputRef}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  onChange={handleCoverUpload}
+                  disabled={coverUploading}
+                />
+                <div className="admin-hint">JPEG, PNG or WebP — max 10 MB</div>
+              </div>
+              {coverUploading && (
+                <div style={{ marginTop: 12 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', fontFamily: 'monospace', color: '#888', marginBottom: 6 }}>
+                    <span>Uploading…</span><span>{coverProgress}%</span>
+                  </div>
+                  <div style={{ height: 6, background: '#e8e5df', borderRadius: 3, overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: `${coverProgress}%`, background: '#4A5240', borderRadius: 3, transition: 'width 0.2s ease' }} />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
