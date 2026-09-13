@@ -16,6 +16,7 @@ class SettingsController extends Controller
         'contact_email', 'contact_phone', 'contact_whatsapp',
         'contact_linkedin', 'contact_location_en', 'contact_location_ar',
         'og_cover_url',
+        'hero_canvas_bg',
     ];
 
     public function index()
@@ -66,6 +67,15 @@ class SettingsController extends Controller
         Storage::disk('public')->put('og-cover.jpg', file_get_contents($request->file('image')->getRealPath()));
         $url = url('storage/og-cover.jpg');
         Setting::set('og_cover_url', $url);
+        return response()->json(['url' => $url]);
+    }
+
+    public function uploadCanvasBg(Request $request)
+    {
+        $request->validate(['image' => 'required|image|mimes:jpeg,jpg,png,webp|max:10240']);
+        Storage::disk('public')->put('canvas-bg.jpg', file_get_contents($request->file('image')->getRealPath()));
+        $url = url('storage/canvas-bg.jpg');
+        Setting::set('hero_canvas_bg', $url);
         return response()->json(['url' => $url]);
     }
 }

@@ -9,9 +9,20 @@ const POINTS = [
   { x: 0.38, y: 0.42, l: 'DAMASCUS' },
 ]
 
-export default function HeroCanvas() {
+export default function HeroCanvas({ bgImage }) {
   const canvasRef = useRef(null)
   const frameRef = useRef(null)
+  const bgImgRef = useRef(null)
+
+  useEffect(() => {
+    if (bgImage) {
+      const img = new Image()
+      img.src = bgImage
+      img.onload = () => { bgImgRef.current = img }
+    } else {
+      bgImgRef.current = null
+    }
+  }, [bgImage])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -37,8 +48,21 @@ export default function HeroCanvas() {
 
     const draw = () => {
       t += 0.004
-      ctx.fillStyle = '#0D0D0B'
-      ctx.fillRect(0, 0, w, h)
+
+      // Background: image or solid colour
+      const bg = bgImgRef.current
+      if (bg) {
+        const scale = Math.max(w / bg.width, h / bg.height)
+        const bw = bg.width * scale
+        const bh = bg.height * scale
+        ctx.drawImage(bg, (w - bw) / 2, (h - bh) / 2, bw, bh)
+        // Dark overlay so points stay visible
+        ctx.fillStyle = 'rgba(13,13,11,0.72)'
+        ctx.fillRect(0, 0, w, h)
+      } else {
+        ctx.fillStyle = '#0D0D0B'
+        ctx.fillRect(0, 0, w, h)
+      }
 
       const cols = Math.ceil(w / 36) + 1
       const rows = Math.ceil(h / 36) + 1

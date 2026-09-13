@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { adminGetSettings, adminUpdateSettings, adminUploadOgCover } from '../../services/api.js'
+import { adminGetSettings, adminUpdateSettings, adminUploadOgCover, adminUploadCanvasBg } from '../../services/api.js'
 
 export default function SettingsManager() {
   const [settings, setSettings] = useState(null)
@@ -8,6 +8,9 @@ export default function SettingsManager() {
   const [coverUploading, setCoverUploading] = useState(false)
   const [coverProgress, setCoverProgress] = useState(0)
   const coverInputRef = useRef(null)
+  const [bgUploading, setBgUploading] = useState(false)
+  const [bgProgress, setBgProgress] = useState(0)
+  const bgInputRef = useRef(null)
 
   useEffect(() => {
     adminGetSettings().then((r) => setSettings(r.data)).catch(() => {})
@@ -37,6 +40,20 @@ export default function SettingsManager() {
     }
     setCoverUploading(false)
     coverInputRef.current.value = ''
+  }
+
+  const handleCanvasBgUpload = async (e) => {
+    const file = e.target.files[0]; if (!file) return
+    setBgUploading(true); setBgProgress(0); setAlert(null)
+    try {
+      const r = await adminUploadCanvasBg(file, pct => setBgProgress(pct))
+      setSettings(s => ({ ...s, hero_canvas_bg: r.data.url }))
+      setAlert({ type: 'success', msg: 'Canvas background uploaded.' })
+    } catch (err) {
+      setAlert({ type: 'error', msg: err?.response?.data?.message || 'Upload failed.' })
+    }
+    setBgUploading(false)
+    bgInputRef.current.value = ''
   }
 
   if (!settings) return <div className="admin-loading">Loading…</div>
@@ -111,6 +128,44 @@ export default function SettingsManager() {
                   </div>
                   <div style={{ height: 6, background: '#e8e5df', borderRadius: 3, overflow: 'hidden' }}>
                     <div style={{ height: '100%', width: `${coverProgress}%`, background: '#4A5240', borderRadius: 3, transition: 'width 0.2s ease' }} />
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Hero Canvas Background */}
+          <div className="admin-card">
+            <div className="admin-card-header"><div className="admin-card-title">Hero Map Background Image</div></div>
+            <div style={{ padding: '16px 24px 24px' }}>
+              <div className="admin-hint" style={{ marginBottom: 16 }}>
+                Background image for the animated map on the hero section. A dark overlay is applied automatically so the points stay visible.
+              </div>
+              {settings.hero_canvas_bg && (
+                <img
+                  src={settings.hero_canvas_bg}
+                  alt="Canvas BG"
+                  style={{ width: '100%', maxHeight: 180, objectFit: 'cover', display: 'block', marginBottom: 16, borderRadius: 2 }}
+                />
+              )}
+              <div className="admin-field light">
+                <label>Upload Background</label>
+                <input
+                  ref={bgInputRef}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  onChange={handleCanvasBgUpload}
+                  disabled={bgUploading}
+                />
+                <div className="admin-hint">JPEG, PNG or WebP — max 10 MB</div>
+              </div>
+              {bgUploading && (
+                <div style={{ marginTop: 12 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', fontFamily: 'monospace', color: '#888', marginBottom: 6 }}>
+                    <span>Uploading…</span><span>{bgProgress}%</span>
+                  </div>
+                  <div style={{ height: 6, background: '#e8e5df', borderRadius: 3, overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: `${bgProgress}%`, background: '#4A5240', borderRadius: 3, transition: 'width 0.2s ease' }} />
                   </div>
                 </div>
               )}

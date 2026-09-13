@@ -59,7 +59,7 @@ export default function Home({ goTo }) {
           </div>
         </div>
         <div className="hero-right">
-          <HeroCanvas />
+          <HeroCanvas bgImage={apiSettings?.hero_canvas_bg || ''} />
         </div>
       </div>
 
