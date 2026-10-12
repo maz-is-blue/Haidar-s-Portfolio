@@ -1,11 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useLanguage } from '../LanguageContext.jsx'
-import Dashboard from './Dashboard.jsx'
 import { getSettings } from '../services/api.js'
 
 export default function Footer() {
   const { t } = useLanguage()
-  const [dashOpen, setDashOpen] = useState(false)
   const [linkedin, setLinkedin] = useState('')
 
   useEffect(() => {
@@ -14,13 +12,13 @@ export default function Footer() {
 
   const linkedinUrl = linkedin
     ? `https://linkedin.com/in/${linkedin.replace(/^.*linkedin\.com\/in\//i, '').replace(/\/$/, '')}`
-    : 'https://linkedin.com'
+    : null
 
   return (
     <div className="footer">
       <div className="footer-brand">{t.footer.brand}</div>
       <div className="footer-copy">{t.footer.copy}</div>
-      {linkedin && (
+      {linkedinUrl && (
         <a
           href={linkedinUrl}
           target="_blank"
@@ -33,14 +31,6 @@ export default function Footer() {
           </svg>
         </a>
       )}
-      <button
-        className="footer-gear"
-        onClick={() => setDashOpen(d => !d)}
-        title="Showreel settings"
-      >
-        ⚙
-      </button>
-      {dashOpen && <Dashboard onClose={() => setDashOpen(false)} />}
     </div>
   )
 }
