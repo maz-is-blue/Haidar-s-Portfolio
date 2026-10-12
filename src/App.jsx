@@ -50,7 +50,6 @@ function Portfolio() {
     photos: <Photography />,
     articles: <Articles />,
     about: <About />,
-    contact: <Contact />,
   }
 
   return (

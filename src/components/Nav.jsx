@@ -12,7 +12,6 @@ export default function Nav({ page, setPage }) {
     ['photos', t.nav.photos],
     ['articles', t.nav.articles],
     ['about', t.nav.about],
-    ['contact', t.nav.contact],
   ]
 
   const go = (id) => {

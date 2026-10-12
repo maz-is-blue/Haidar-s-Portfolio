@@ -55,7 +55,6 @@ export default function Home({ goTo }) {
           <div className="hero-tagline">{tagline}</div>
           <div className="hero-btns">
             <button className="btn-primary" onClick={() => goTo('work')}>{t.hero.cta1}</button>
-            <button className="btn-ghost" onClick={() => goTo('contact')}>{t.hero.cta2}</button>
           </div>
         </div>
         <div className="hero-right">
@@ -143,36 +142,6 @@ export default function Home({ goTo }) {
         </div>
       </div>
 
-      {/* Contact Preview */}
-      <div className="home-contact-preview">
-        <div className="section-label" style={{ marginBottom: 28 }}>
-          <span className="section-label-text" style={{ color: 'var(--olive-pale)' }}>{t.contact.title}</span>
-          <div className="section-label-line" style={{ background: '#2A2A22' }}></div>
-        </div>
-        <div className="home-contact-preview-inner">
-          <div>
-            <div className="home-contact-headline">
-              {t.contact.headline1}
-              {t.contact.headline2 && <> {t.contact.headline2}</>}
-              {' '}
-              <span>{t.contact.headline3}</span>
-            </div>
-            <button className="btn-primary" onClick={() => goTo('contact')}>{t.contact.previewBtn}</button>
-          </div>
-          <div>
-            <ul className="contact-list" style={{ marginBottom: 20 }}>
-              {t.contact.info.slice(0, 4).map((item, i) => (
-                <li key={i}><strong>{item.label}</strong>{item.value}</li>
-              ))}
-            </ul>
-            <div className="avail-wrap">
-              {t.contact.avail.slice(0, 4).map((a, i) => (
-                <span className="avail-tag" key={i}>{a}</span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   )
 }
